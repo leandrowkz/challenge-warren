@@ -9,7 +9,7 @@ export default class AuthController {
   /**
    * Attempt to get auth token based on request params.
    */
-  protected async getToken(auth: AuthContract, request: RequestContract): Promise<string> {
+  protected async getToken (auth: AuthContract, request: RequestContract): Promise<string> {
     const email = request.input('email')
     const password = request.input('password')
 
@@ -20,7 +20,7 @@ export default class AuthController {
   /**
    * Register a new user.
    */
-  public async signUp({ auth, request }: HttpContextContract): Promise<string> {
+  public async signUp ({ auth, request }: HttpContextContract): Promise<string> {
     await SignUpValidator.validate(request)
     await UserService.create(<UserSchema>request.all())
     return await this.getToken(auth, request)
@@ -29,14 +29,14 @@ export default class AuthController {
   /**
    * Authenticate user and generates token.
    */
-  public async signIn({ auth, request }: HttpContextContract): Promise<string> {
+  public async signIn ({ auth, request }: HttpContextContract): Promise<string> {
     return this.getToken(auth, request)
   }
 
   /**
    * Logout user (destroys token).
    */
-  public async signOut({ auth }: HttpContextContract): Promise<object> {
+  public async signOut ({ auth }: HttpContextContract): Promise<object> {
     await auth.logout()
     return { status: true }
   }
