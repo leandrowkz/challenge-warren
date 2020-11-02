@@ -1,5 +1,6 @@
-import { column } from '@ioc:Adonis/Lucid/Orm'
+import { BelongsTo, belongsTo, column } from '@ioc:Adonis/Lucid/Orm'
 import BaseModel from 'App/Models/BaseModel'
+import User from 'App/Models/User'
 
 export interface TransactionSchema {
   id?: string
@@ -27,4 +28,7 @@ export default class Transaction extends BaseModel {
 
   @column()
   public description: string
+
+  @belongsTo(() => User)
+  public transactions: BelongsTo<typeof User>
 }
