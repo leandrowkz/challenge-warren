@@ -1,0 +1,31 @@
+{
+  "name": "backend",
+  "version": "1.0.0",
+  "private": true,
+  "scripts": {
+    "build": "node ace build --production",
+    "start": "node server.js",
+    "dev": "node ace serve --watch",
+    "lint": "eslint . --ext=.ts",
+    "format": "prettier --write ."
+  },
+  "devDependencies": {
+    "@adonisjs/assembler": "^3.0.6",
+    "adonis-preset-ts": "^1.1.0",
+    "eslint": "^7.12.1",
+    "eslint-config-prettier": "^6.15.0",
+    "eslint-plugin-adonis": "^1.0.15",
+    "eslint-plugin-prettier": "^3.1.4",
+    "pino-pretty": "^4.3.0",
+    "prettier": "^2.1.2",
+    "typescript": "^4.0.5",
+    "youch": "^2.1.1",
+    "youch-terminal": "^1.0.1"
+  },
+  "dependencies": {
+    "@adonisjs/core": "^5.0.4-preview-rc-2",
+    "@adonisjs/repl": "^1.1.5",
+    "proxy-addr": "^2.0.6",
+    "reflect-metadata": "^0.1.13"
+  }
+}
