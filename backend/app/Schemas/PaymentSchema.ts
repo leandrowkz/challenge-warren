@@ -1,8 +1,9 @@
 import { DateTime } from 'luxon'
 
 export interface PaymentSchema {
-  userId: string
+  user_id: string
   type: 'payment'
+  barcode: string
   amount: number
   when: DateTime
 }

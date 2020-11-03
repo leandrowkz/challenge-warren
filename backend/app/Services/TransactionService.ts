@@ -2,10 +2,19 @@ import { DateTime } from 'luxon'
 import { DepositSchema } from 'App/Schemas/DepositSchema'
 import { FilterSchema } from 'App/Schemas/FilterSchema'
 import { PaymentSchema } from 'App/Schemas/PaymentSchema'
+import Detail from 'App/Models/Detail'
 import Transaction from 'App/Models/Transaction'
 import User from 'App/Models/User'
 
 export default class TransactionService {
+  /**
+   * Handle given amount.
+   * Prevent to insert positive values where it is supposed to insert positive ones.
+   */
+  protected static _handleNegativeAmount (amount: number): number {
+    return -(amount) > 0 ? amount : -(amount)
+  }
+
   /**
    * Returns all transactions available for given user.
    */
@@ -28,9 +37,14 @@ export default class TransactionService {
     const transaction = new Transaction()
     transaction.when = DateTime.local().toString()
     transaction.type = 'payment'
-    transaction.amount = data.amount
-    transaction.userId = data.userId
+    transaction.amount = this._handleNegativeAmount(data.amount)
+    transaction.userId = data.user_id
     await transaction.save()
+
+    // Save document info
+    const detail = new Detail()
+    detail.barcode = data.barcode
+    await detail.related('transaction').associate(transaction)
     return transaction
   }
 
@@ -42,7 +56,7 @@ export default class TransactionService {
     transaction.when = DateTime.local().toString()
     transaction.type = 'deposit'
     transaction.amount = data.amount
-    transaction.userId = data.userId
+    transaction.userId = data.user_id
     await transaction.save()
     return transaction
   }

@@ -1,6 +1,7 @@
-import { BelongsTo, belongsTo, column } from '@ioc:Adonis/Lucid/Orm'
+import { BelongsTo, belongsTo, column, HasOne, hasOne } from '@ioc:Adonis/Lucid/Orm'
 import BaseModel from 'App/Models/BaseModel'
 import User from 'App/Models/User'
+import Detail from 'App/Models/Detail'
 
 export default class Transaction extends BaseModel {
   public static table = 'transactions'
@@ -22,4 +23,7 @@ export default class Transaction extends BaseModel {
 
   @belongsTo(() => User)
   public user: BelongsTo<typeof User>
+
+  @hasOne(() => Detail)
+  public details: HasOne<typeof Detail>
 }

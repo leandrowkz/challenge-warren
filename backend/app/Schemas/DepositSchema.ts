@@ -1,7 +1,7 @@
 import { DateTime } from 'luxon'
 
 export interface DepositSchema {
-  userId: string
+  user_id: string
   type: 'deposit'
   amount: number
   when: DateTime
