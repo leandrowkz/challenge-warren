@@ -26,8 +26,7 @@ export default class TransactionService {
    */
   public static async makePayment (data: PaymentSchema) : Promise<Transaction> {
     const transaction = new Transaction()
-    // @ts-ignore
-    transaction.when = DateTime.now().toString()
+    transaction.when = DateTime.local().toString()
     transaction.type = 'payment'
     transaction.amount = data.amount
     transaction.userId = data.userId
@@ -40,9 +39,8 @@ export default class TransactionService {
    */
   public static async makeDeposit (data: DepositSchema) : Promise<Transaction> {
     const transaction = new Transaction()
-    // @ts-ignore
-    transaction.when = DateTime.now().toString()
-    transaction.type = 'payment'
+    transaction.when = DateTime.local().toString()
+    transaction.type = 'deposit'
     transaction.amount = data.amount
     transaction.userId = data.userId
     await transaction.save()
