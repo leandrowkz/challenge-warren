@@ -1,7 +1,7 @@
 import { RequestContract } from '@ioc:Adonis/Core/Request'
 import { AuthContract } from '@ioc:Adonis/Addons/Auth'
 import { HttpContextContract } from '@ioc:Adonis/Core/HttpContext'
-import { UserSchema } from 'App/Models/User'
+import { UserSchema } from 'App/Schemas/UserSchema'
 import UserService from 'App/Services/UserService'
 import SignUpValidator from 'App/Validations/SignUpValidator'
 

@@ -11,7 +11,6 @@ export default class Transactions extends BaseSchema {
       table.dateTime('when').notNullable()
       table.string('type').notNullable() // deposit, withdraw, payment
       table.double('amount').notNullable().defaultTo(0)
-      table.text('description')
     })
   }
 

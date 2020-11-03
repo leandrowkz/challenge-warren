@@ -3,13 +3,6 @@ import Hash from '@ioc:Adonis/Core/Hash'
 import BaseModel from 'App/Models/BaseModel'
 import Transaction from 'App/Models/Transaction'
 
-export interface UserSchema {
-  id?: string | null
-  name: string
-  email: string
-  password?: string | null
-}
-
 export default class User extends BaseModel {
   public static table = 'users'
 

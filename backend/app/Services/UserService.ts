@@ -1,4 +1,5 @@
-import User, { UserSchema } from 'App/Models/User'
+import { UserSchema } from 'App/Schemas/UserSchema'
+import User from 'App/Models/User'
 
 export default class UserService {
   /**

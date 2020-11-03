@@ -1,11 +1,16 @@
 # v3 syntax
-version: '3.4'
+version: '3.5'
 
 # Named volumes
 volumes:
   # MySQL Data
   warren-mysql-data:
     driver: local
+
+# Named networks
+networks:
+  warren-network:
+    name: 'warren-network'
 
 # App services
 services:
@@ -27,6 +32,8 @@ services:
       - MYSQL_USER=warren
       - MYSQL_PASSWORD=warren
       - MYSQL_ALLOW_EMPTY_PASSWORD=true
+    networks:
+      - warren-network
 
   # Adonis API
   warren-api:
@@ -45,3 +52,5 @@ services:
       - warren-mysql
     links:
       - warren-mysql
+    networks:
+      - warren-network
