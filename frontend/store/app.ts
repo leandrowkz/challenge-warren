@@ -20,13 +20,7 @@ export const actions: ActionTree<AppState, AppState> = {
    */
   async bootApplication({ commit }) {
     commit('SET_BOOT_LOADING', true)
-    await Promise.all([
-      this.dispatch('sport/getAll'),
-      this.dispatch('method/fetchUserMethods'),
-      this.dispatch('tag/fetchUserTags'),
-      this.dispatch('user/getConfigs'),
-      this.dispatch('user/getSports'),
-    ])
+    await Promise.all([this.dispatch('wallet/fetchUserWallet')])
     commit('SET_BOOT_LOADING', false)
   },
 

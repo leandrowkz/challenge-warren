@@ -14,26 +14,12 @@
           {{ $auth.user.email }}
         </div>
       </a-menu-item>
-      <a-menu-item>
-        <nuxt-link to="/settings/profile" href="/settings/profile">
-          <a-icon type="user" />
-          <span>Seu perfil</span>
-        </nuxt-link>
-      </a-menu-item>
-      <a-menu-item>
-        <nuxt-link to="/settings" href="/settings">
-          <a-icon type="setting" />
-          <span>Configurações</span>
-        </nuxt-link>
-      </a-menu-item>
-      <a-menu-divider />
       <a-menu-item @click="logout">
         <a-icon type="logout" />
         <span>Sair</span>
       </a-menu-item>
     </a-menu>
     <div class="handler">
-      <a-avatar :size="28" :src="$auth.user.avatar" icon="user" />
       <div class="name">
         {{ $auth.user.first_name }}
       </div>

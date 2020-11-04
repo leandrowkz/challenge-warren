@@ -2,7 +2,10 @@
   <a-layout-header :class="{ container: container }" class="app-view-header">
     <div class="app-view-header-wrapper">
       <AppLogo />
-      <AppViewHeaderUser />
+      <div class="right-section">
+        <AppViewHeaderWallet />
+        <AppViewHeaderUser />
+      </div>
     </div>
   </a-layout-header>
 </template>
@@ -27,8 +30,8 @@ export default {
   height: @layout-header-height;
   background: @layout-header-background;
   box-shadow: @layout-header-shadow;
-  border-top: 4px solid @primary-color;
-  border-bottom: 4px solid transparent;
+  border-top: 5px solid @primary-color;
+  border-bottom: 5px solid transparent;
   box-sizing: border-box;
 
   &.container {
@@ -42,6 +45,12 @@ export default {
   .app-view-header-wrapper {
     width: 100%;
     height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+
+  .right-section {
     display: flex;
     align-items: center;
     justify-content: space-between;
