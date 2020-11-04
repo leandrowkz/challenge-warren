@@ -20,6 +20,7 @@
 import { mapGetters } from 'vuex'
 import DateHelper from '~/helpers/DateHelper'
 import FilterHelper from '~/helpers/FilterHelper'
+import TransactionHistoryListDetails from '~/components/TransactionHistoryListDetails.vue'
 
 export default {
   props: {
@@ -30,7 +31,7 @@ export default {
   },
   computed: {
     ...mapGetters('app', ['formatCurrency']),
-    ...mapGetters('transaction', ['getLabel']),
+    ...mapGetters('transaction', ['getTypeLabel']),
     columns() {
       const when = {
         key: 'when',
@@ -44,9 +45,8 @@ export default {
 
       const type = {
         key: 'type',
-        title: 'Tipo',
-        align: 'center',
-        width: 200,
+        title: 'Movimentação',
+        width: 150,
         sorter: (a, b) => FilterHelper.sort(a.type, b.type),
         customRender: (_, transaction) => (
           <span>{this.getTypeLabel(transaction.type)}</span>
@@ -56,22 +56,27 @@ export default {
       const details = {
         key: 'details',
         title: 'Detalhes',
-        sorter: (a, b) => FilterHelper.sort(a.type, b.type),
-        customRender: (_, transaction) => <span>{transaction.details}</span>,
+        sorter: (a, b) => FilterHelper.sort(a.details, b.details),
+        customRender: (_, transaction) => (
+          <TransactionHistoryListDetails transaction={transaction} />
+        ),
       }
 
       const amount = {
-        key: 'half',
-        width: 200,
+        key: 'amount',
+        width: 150,
         title: 'Valor',
         align: 'right',
-        sorter: (a, b) => FilterHelper.sort(a.half, b.half),
+        sorter: (a, b) => FilterHelper.sort(a.amount, b.amount),
         customRender: (_, transaction) => {
           const textClass =
             transaction.amount >= 0 ? 'text-success' : 'text-error'
           return (
-            <span class={textClass}>
-              {this.formatCurrency(transaction.amount)}
+            <span>
+              <span class="text-muted text-small mr-2">R$</span>
+              <span class={textClass}>
+                {this.formatCurrency(transaction.amount)}
+              </span>
             </span>
           )
         },

@@ -22,9 +22,8 @@ export default {
 
 <style lang="less">
 .app-card-header {
-  border-bottom: 1px solid @gray-4;
   margin-bottom: @spacer-md;
-  padding-bottom: @spacer-md;
+  padding-bottom: @spacer-lg;
 
   .title {
     margin: 0;

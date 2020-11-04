@@ -1,6 +1,13 @@
+import * as moment from 'moment'
 import { GetterTree, ActionTree, MutationTree } from 'vuex'
+import DateHelper from '~/helpers/DateHelper'
 
 export const state = () => ({
+  filters: {
+    type: <string>'all',
+    from: <string>DateHelper.format(<any>moment().startOf('month')),
+    to: <string>DateHelper.format(<any>moment().endOf('month')),
+  },
   bootLoading: <boolean>false,
   signInErrors: <any[] | false>false,
   signUpErrors: <any[] | false>false,

@@ -13,6 +13,12 @@ export const state = () => ({
     description: <string>null,
     backRoute: '/dashboard',
   },
+  labels: {
+    deposit: 'Depósito',
+    payment: 'Pagamento',
+    transfer: 'Transferência',
+    withdraw: 'Saque',
+  },
 })
 
 export type TransactionState = ReturnType<typeof state>
@@ -25,15 +31,22 @@ export const getters: GetterTree<TransactionState, TransactionState> = {
       ) || null
     )
   },
+  getTypeLabel: (state) => (type: string) => {
+    return state.labels[type] || 'Não identificado'
+  },
 }
 
 export const actions: ActionTree<TransactionState, TransactionState> = {
   /**
    * Fetch all user tags from api.
    */
-  async fetchWalletTransactions({ commit }) {
+  async fetchWalletTransactions({ commit, rootState }) {
+    // @ts-ignore
+    const { filters } = rootState.app
     commit('SET_LOADING_WALLET_TRANSACTIONS', true)
-    const { data } = await this.$api.transaction.fetchWalletTransactions()
+    const { data } = await this.$api.transaction.fetchWalletTransactions({
+      filters,
+    })
     commit('SET_WALLET_TRANSACTIONS', data)
     commit('SET_LOADING_WALLET_TRANSACTIONS', false)
     return data
