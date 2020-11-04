@@ -2,8 +2,6 @@
   <div class="login-page">
     <a-card class="login-card">
       <AppLogo />
-      <h1 class="title">Faça login</h1>
-      <div class="description">Continue para seu dashboard.</div>
       <AppMessageErrors
         v-if="signInErrors"
         :errors="signInErrors"
@@ -14,8 +12,8 @@
         <div class="text-bold">Não possui uma conta?</div>
         <nuxt-link to="/signup">Cadastre-se gratuitamente!</nuxt-link>
       </section>
-    </div>
-  </a-card>
+    </a-card>
+  </div>
 </template>
 
 <script>
@@ -36,47 +34,23 @@ export default {
 
   .login-card {
     margin: 0 auto;
-    display: grid;
-    place-items: center;
-    align-content: center;
-    max-width: 430px;
-    min-height: 100%;
+    width: 430px;
     height: auto;
     padding: @padding-lg + @padding-md;
     background: #fff;
-    box-shadow: 5px 0px 20px 0px fade(@gray-8, 40%);
+    box-shadow: 0px 0px 20px 0px fade(@gray-8, 30%);
 
     .app-logo {
+      display: block;
+      text-align: center;
+      position: relative;
       width: 100%;
-      margin-top: -@spacer-lg;
-      margin-bottom: @spacer-xs;
-      text-align: left;
-
-      img {
-        width: 140px;
-      }
-    }
-
-    .title {
-      width: 100%;
-      text-align: left;
-      margin-bottom: 0;
-
-      .anticon {
-        font-size: @font-size-base;
-        color: @text-color-muted;
-      }
-    }
-
-    .description {
-      width: 100%;
-      margin-bottom: @spacer-md;
-      color: @text-color-muted;
-      text-align: left;
+      margin: @spacer-lg auto;
+      margin-top: -@spacer-xs;
     }
 
     .no-account {
-      margin-top: @spacer-md;
+      margin-top: @spacer-sm;
       text-align: center;
       width: 100%;
     }

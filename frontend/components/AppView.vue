@@ -1,7 +1,6 @@
 <template>
   <a-layout class="app-view">
-    <AppViewHeader v-if="header" />
-    <AppViewSidebar v-if="sidebar" />
+    <AppViewHeader v-if="header" :container="container" />
     <AppViewContent :container="container">
       <slot />
     </AppViewContent>
@@ -11,17 +10,13 @@
 <script>
 export default {
   props: {
-    sidebar: {
-      type: Boolean,
-      default: true,
-    },
     header: {
       type: Boolean,
       default: true,
     },
     container: {
       type: Boolean,
-      default: false,
+      default: true,
     },
   },
 }

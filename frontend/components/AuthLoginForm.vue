@@ -29,39 +29,16 @@
       >
         <a-icon slot="prefix" type="lock" />
       </a-input>
-      <nuxt-link to="/forgot" class="forgot-link">
-        Esqueci minha senha
-      </nuxt-link>
     </a-form-model-item>
     <a-button
       :loading="signInLoading"
       type="primary"
       size="large"
-      class="mt-4"
+      class="mt-3"
       block
       @click="submit"
     >
       Entrar
-    </a-button>
-    <a-button
-      :loading="signInLoading"
-      type="default"
-      size="large"
-      icon="google"
-      block
-      @click="signInGoogle"
-    >
-      Entrar com Google
-    </a-button>
-    <a-button
-      :loading="signInLoading"
-      type="default"
-      size="large"
-      icon="facebook"
-      block
-      @click="signInFacebook"
-    >
-      Entrar com Facebook
     </a-button>
   </a-form-model>
 </template>
@@ -102,12 +79,6 @@ export default {
   },
   computed: mapState('app', ['signInLoading']),
   methods: {
-    signInGoogle() {
-      this.$store.dispatch('app/signInGoogle')
-    },
-    signInFacebook() {
-      this.$store.dispatch('app/signInSocial')
-    },
     submit() {
       this.$refs.form.validate(async (valid) => {
         if (valid) {
@@ -126,10 +97,6 @@ export default {
     right: 0;
     top: 30px;
     font-size: @font-size-sm;
-  }
-
-  .ant-btn {
-    margin-bottom: @spacer-md;
   }
 }
 </style>

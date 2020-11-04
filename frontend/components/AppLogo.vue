@@ -19,7 +19,7 @@ export default {
 <style lang="less">
 .app-logo {
   width: 200px;
-  font-size: @font-size-lg;
+  font-size: calc(@font-size-lg + 5px);
   font-weight: bold;
   > span:last-child {
     color: @primary-color;

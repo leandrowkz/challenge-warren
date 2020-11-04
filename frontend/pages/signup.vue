@@ -1,9 +1,7 @@
 <template>
   <div class="signup-page">
-    <div class="signup-section">
-      <AppLogo type="dark" />
-      <h1 class="title">Cadastre-se</h1>
-      <div class="description">Comece a usar seu dashboard.</div>
+    <a-card class="signup-card">
+      <AppLogo />
       <AppMessageErrors
         v-if="signUpErrors"
         :errors="signUpErrors"
@@ -12,9 +10,9 @@
       <AuthSignupForm />
       <section class="has-account">
         <div class="text-bold">Já possui uma conta?</div>
-        <nuxt-link to="/login">Faça login</nuxt-link>
+        <nuxt-link to="/">Faça login</nuxt-link>
       </section>
-    </div>
+    </a-card>
   </div>
 </template>
 
@@ -31,49 +29,28 @@ export default {
 .signup-page {
   height: 100%;
   width: 100%;
+  display: grid;
+  place-items: center;
 
-  .signup-section {
-    display: grid;
-    place-items: center;
-    align-content: center;
-    max-width: 430px;
-    min-height: 100%;
+  .signup-card {
+    margin: 0 auto;
+    width: 430px;
     height: auto;
     padding: @padding-lg + @padding-md;
     background: #fff;
-    box-shadow: 5px 0px 20px 0px fade(@gray-8, 40%);
+    box-shadow: 0px 0px 20px 0px fade(@gray-8, 30%);
 
     .app-logo {
+      display: block;
+      text-align: center;
+      position: relative;
       width: 100%;
-      margin-top: -@spacer-lg;
-      margin-bottom: @spacer-xs;
-      text-align: left;
-
-      img {
-        width: 140px;
-      }
-    }
-
-    .title {
-      width: 100%;
-      text-align: left;
-      margin-bottom: 0;
-
-      .anticon {
-        font-size: @font-size-base;
-        color: @text-color-muted;
-      }
-    }
-
-    .description {
-      width: 100%;
-      margin-bottom: @spacer-md;
-      color: @text-color-muted;
-      text-align: left;
+      margin: @spacer-lg auto;
+      margin-top: -@spacer-xs;
     }
 
     .has-account {
-      margin-top: @spacer-md;
+      margin-top: @spacer-sm;
       text-align: center;
       width: 100%;
     }

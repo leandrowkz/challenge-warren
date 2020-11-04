@@ -53,7 +53,7 @@
       :loading="signUpLoading"
       type="primary"
       size="large"
-      class="mt-4"
+      class="mt-3"
       block
       @click="submit()"
     >

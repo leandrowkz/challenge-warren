@@ -32,7 +32,6 @@ export default {
     // https://go.nuxtjs.dev/axios
     '@nuxtjs/axios',
     '@nuxtjs/auth',
-    '@nuxtjs/firebase',
     'vue-currency-input/nuxt',
   ],
 
