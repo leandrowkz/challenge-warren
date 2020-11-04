@@ -1,7 +1,8 @@
-import { beforeCreate, column, computed, HasMany, hasMany } from '@ioc:Adonis/Lucid/Orm'
+import { afterCreate, beforeCreate, column, computed, HasOne, hasOne } from '@ioc:Adonis/Lucid/Orm'
 import Hash from '@ioc:Adonis/Core/Hash'
 import BaseModel from 'App/Models/BaseModel'
-import Transaction from 'App/Models/Transaction'
+import Account from 'App/Models/Account'
+import AccountService from 'App/Services/AccountService'
 
 export default class User extends BaseModel {
   public static table = 'users'
@@ -27,6 +28,11 @@ export default class User extends BaseModel {
     }
   }
 
-  @hasMany(() => Transaction)
-  public transactions: HasMany<typeof Transaction>
+  @afterCreate()
+  public static async makeAccount (user: User) {
+    await AccountService.makeUserAccount(user)
+  }
+
+  @hasOne(() => Account)
+  public account: HasOne<typeof Account>
 }

@@ -1,4 +1,5 @@
 import { HttpContextContract } from '@ioc:Adonis/Core/HttpContext'
+import Account from 'App/Models/Account'
 import User from 'App/Models/User'
 import { DepositSchema } from 'App/Schemas/DepositSchema'
 import { FilterSchema } from 'App/Schemas/FilterSchema'
@@ -12,10 +13,12 @@ export default class TransactionController {
   /**
    * Returns all user logged tags.
    */
-  public async getUserHistory ({ auth, request } : HttpContextContract) {
+  public async getAccountHistory ({ auth, request } : HttpContextContract) {
     await FilterValidator.validate(request)
     const filters = <FilterSchema>request.all()
-    return await TransactionService.getUserHistory(<User>auth.user, filters)
+    const user = <User>auth.user
+    await user.preload('account')
+    return await TransactionService.getAccountHistory(user.account, filters)
   }
 
   /**
@@ -24,9 +27,10 @@ export default class TransactionController {
   public async deposit ({ auth, request } : HttpContextContract) {
     await DepositValidator.validate(request)
     const user = <User>auth.user
+    await user.preload('account')
     const payload = <DepositSchema>{
       ...request.all(),
-      user_id: user.id,
+      account_id: user.account.id,
     }
     return await TransactionService.makeDeposit(payload)
   }
@@ -37,9 +41,10 @@ export default class TransactionController {
   public async payment ({ auth, request } : HttpContextContract) {
     await PaymentValidator.validate(request)
     const user = <User>auth.user
+    await user.preload('account')
     const payload = <PaymentSchema>{
       ...request.all(),
-      user_id: user.id,
+      account_id: user.account.id,
     }
     return await TransactionService.makePayment(payload)
   }

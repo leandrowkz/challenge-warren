@@ -2,9 +2,9 @@ import { DateTime } from 'luxon'
 import { DepositSchema } from 'App/Schemas/DepositSchema'
 import { FilterSchema } from 'App/Schemas/FilterSchema'
 import { PaymentSchema } from 'App/Schemas/PaymentSchema'
+import Account from 'App/Models/Account'
 import Detail from 'App/Models/Detail'
 import Transaction from 'App/Models/Transaction'
-import User from 'App/Models/User'
 
 export default class TransactionService {
   /**
@@ -16,18 +16,18 @@ export default class TransactionService {
   }
 
   /**
-   * Returns all transactions available for given user.
+   * Returns all transactions available for given user account.
    */
-  public static async getUserHistory (user: User, filters: FilterSchema) : Promise<Transaction[]> {
+  public static async getAccountHistory (account: Account, filters: FilterSchema) : Promise<Transaction[]> {
     // Load and filter transactions
-    await user.preload('transactions', (query) => {
+    await account.preload('transactions', (query) => {
       if (filters.type) {
         query.where('type', filters.type)
       }
       query.whereBetween('when', [filters.from.toString(), filters.to.toString()])
       query.orderBy('created_at', 'asc')
     })
-    return user.transactions
+    return account.transactions
   }
 
   /**
@@ -38,7 +38,7 @@ export default class TransactionService {
     transaction.when = DateTime.local().toString()
     transaction.type = 'payment'
     transaction.amount = this._handleNegativeAmount(data.amount)
-    transaction.userId = data.user_id
+    transaction.accountId = data.account_id
     await transaction.save()
 
     // Save document info
@@ -56,7 +56,7 @@ export default class TransactionService {
     transaction.when = DateTime.local().toString()
     transaction.type = 'deposit'
     transaction.amount = data.amount
-    transaction.userId = data.user_id
+    transaction.accountId = data.account_id
     await transaction.save()
     return transaction
   }
