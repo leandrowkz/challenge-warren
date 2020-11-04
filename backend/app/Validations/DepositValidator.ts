@@ -1,4 +1,4 @@
-import { schema } from '@ioc:Adonis/Core/Validator'
+import { rules, schema } from '@ioc:Adonis/Core/Validator'
 import BaseValidator from 'App/Validations/BaseValidator'
 
 export default class DepositValidator extends BaseValidator {
@@ -8,7 +8,9 @@ export default class DepositValidator extends BaseValidator {
   public static async getValidationRules () {
     return {
       schema: schema.create({
-        amount: schema.number(),
+        amount: schema.number([
+          rules.unsigned(),
+        ]),
       }),
       messages: {
         'amount.required': 'Valor do depósito é obrigatório.',

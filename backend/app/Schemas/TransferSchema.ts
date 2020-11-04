@@ -1,7 +1,6 @@
 import { DateTime } from 'luxon'
 
 export interface TransferSchema {
-  wallet_id: string
   type: 'transfer'
   bank: string
   ag: string
@@ -10,4 +9,5 @@ export interface TransferSchema {
   person_document: string
   amount: number
   when: DateTime
+  description: string | null
 }

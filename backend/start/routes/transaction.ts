@@ -24,6 +24,7 @@ Route.group(() => {
   Route.get('/history', 'TransactionController.getWalletHistory')
   Route.post('/payment', 'TransactionController.payment')
   Route.post('/deposit', 'TransactionController.deposit')
+  Route.post('/transfer', 'TransactionController.transfer')
   Route.post('/withdraw', 'TransactionController.withdraw')
 })
   .prefix('/transactions')

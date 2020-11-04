@@ -8,7 +8,7 @@ export default class FilterValidator extends BaseValidator {
   public static async getValidationRules () {
     return {
       schema: schema.create({
-        type: schema.enum(['all', 'payment', 'deposit', 'withdraw'] as const),
+        type: schema.enum(['all', 'payment', 'deposit', 'withdraw', 'transfer'] as const),
         from: schema.date(),
         to: schema.date(),
       }),

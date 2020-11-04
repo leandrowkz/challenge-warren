@@ -6,4 +6,5 @@ export interface PaymentSchema {
   barcode: string
   amount: number
   when: DateTime
+  description: string | null
 }

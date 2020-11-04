@@ -15,7 +15,10 @@ export default class Wallet extends BaseModel {
   @column()
   public cc: string
 
-  @column()
+  @column({
+    prepare: (value: any) => Number(parseFloat(value).toFixed(2)),
+    serialize: (value: any) => Number(parseFloat(value).toFixed(2)),
+  })
   public balance: number
 
   @belongsTo(() => User)

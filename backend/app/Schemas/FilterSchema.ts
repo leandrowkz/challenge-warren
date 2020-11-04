@@ -1,7 +1,7 @@
 import { DateTime } from 'luxon'
 
 export interface FilterSchema {
-  type: null | 'deposit' | 'withdraw' | 'payment'
+  type: 'all' | 'deposit' | 'withdraw' | 'payment' | 'transfer'
   from: DateTime
   to: DateTime
 }

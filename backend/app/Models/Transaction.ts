@@ -6,7 +6,7 @@ import Detail from 'App/Models/Detail'
 export default class Transaction extends BaseModel {
   public static table = 'transactions'
 
-  @column()
+  @column({ serializeAs: null })
   public walletId: string | null
 
   @column()
@@ -15,7 +15,10 @@ export default class Transaction extends BaseModel {
   @column()
   public when: string
 
-  @column()
+  @column({
+    prepare: (value: any) => Number(parseFloat(value).toFixed(2)),
+    serialize: (value: any) => Number(parseFloat(value).toFixed(2)),
+  })
   public amount: number
 
   @column()
