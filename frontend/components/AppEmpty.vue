@@ -38,7 +38,7 @@ export default {
     },
     image: {
       type: String,
-      default: 'blank-canvas.svg',
+      default: 'img-blank-canvas.svg',
     },
     showAction: {
       type: Boolean,

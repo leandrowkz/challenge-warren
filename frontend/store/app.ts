@@ -11,7 +11,10 @@ export const state = () => ({
 export type AppState = ReturnType<typeof state>
 
 export const getters: GetterTree<AppState, AppState> = {
-  //
+  formatCurrency: () => (value: number) => {
+    const payload = { minimumFractionDigits: 2 }
+    return value.toLocaleString('pt-br', payload)
+  },
 }
 
 export const actions: ActionTree<AppState, AppState> = {

@@ -2,7 +2,8 @@ import Vue from 'vue'
 import { GetterTree, ActionTree, MutationTree } from 'vuex'
 
 export const state = () => ({
-  transactions: <any[]>[],
+  walletTransactions: <any[]>[],
+  loadingWalletTransactions: <boolean>false,
   form: {
     model: <any>{},
     type: <string>null,
@@ -19,8 +20,9 @@ export type TransactionState = ReturnType<typeof state>
 export const getters: GetterTree<TransactionState, TransactionState> = {
   getTransaction: (state) => (id: string) => {
     return (
-      state.transactions.find((transaction: any) => transaction.id === id) ||
-      null
+      state.walletTransactions.find(
+        (transaction: any) => transaction.id === id
+      ) || null
     )
   },
 }
@@ -30,8 +32,10 @@ export const actions: ActionTree<TransactionState, TransactionState> = {
    * Fetch all user tags from api.
    */
   async fetchWalletTransactions({ commit }) {
+    commit('SET_LOADING_WALLET_TRANSACTIONS', true)
     const { data } = await this.$api.transaction.fetchWalletTransactions()
-    commit('SET_TRANSACTIONS', data)
+    commit('SET_WALLET_TRANSACTIONS', data)
+    commit('SET_LOADING_WALLET_TRANSACTIONS', false)
     return data
   },
 
@@ -98,8 +102,15 @@ export const actions: ActionTree<TransactionState, TransactionState> = {
 }
 
 export const mutations: MutationTree<TransactionState> = {
-  SET_TRANSACTIONS: (state: TransactionState, tags: []) => {
-    state.transactions = [...tags]
+  SET_WALLET_TRANSACTIONS: (state: TransactionState, transactions: []) => {
+    state.walletTransactions = [...transactions]
+  },
+
+  SET_LOADING_WALLET_TRANSACTIONS: (
+    state: TransactionState,
+    loading: boolean
+  ) => {
+    state.loadingWalletTransactions = loading
   },
 
   SET_FORM_ITEM: (state: TransactionState, payload: any) => {

@@ -8,11 +8,15 @@
         <WalletHintCard />
       </a-col>
     </a-row>
+    <TransactionHistoryCard />
   </AppView>
 </template>
 
 <script>
 export default {
   layout: 'app',
+  fetch() {
+    this.$store.dispatch('transaction/fetchWalletTransactions')
+  },
 }
 </script>
