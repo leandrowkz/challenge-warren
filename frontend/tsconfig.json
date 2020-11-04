@@ -1,0 +1,38 @@
+{
+  "compilerOptions": {
+    "strictNullChecks": false,
+    "strictPropertyInitialization": false,
+    "experimentalDecorators": true,
+    "target": "ES2018",
+    "module": "commonjs",
+    "moduleResolution": "Node",
+    "lib": [
+      "ESNext",
+      "ESNext.AsyncIterable",
+      "DOM"
+    ],
+    "esModuleInterop": false,
+    "allowJs": true,
+    "sourceMap": true,
+    "strict": true,
+    "noEmit": true,
+    "baseUrl": ".",
+    "paths": {
+      "~/*": [
+        "./*"
+      ],
+      "@/*": [
+        "./*"
+      ]
+    },
+    "types": [
+      "@types/node",
+      "@nuxt/types",
+      "@nuxtjs/axios",
+      "@nuxtjs/firebase"
+    ]
+  },
+  "exclude": [
+    "node_modules"
+  ]
+}

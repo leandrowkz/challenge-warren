@@ -1,0 +1,247 @@
+@import 'reset.less';
+@import 'variables.less';
+@import 'components.less';
+
+// General styles
+html, body {
+  width: 100%;
+  height: 100%;
+}
+
+#__nuxt, #__layout {
+  width: 100%;
+  height: 100%;
+}
+
+// Spacer styles
+// Margins and paddings (m-0, m-5, m-10, ...)
+each(range(0, 9, 1),{
+  @spacer: "spacer-@{value}";
+
+  // Margin classes
+  .m-@{value} { margin: @@spacer * 1px !important; }
+  .mx-@{value} { margin: 0 @@spacer * 1px !important; }
+  .my-@{value} { margin: @@spacer * 1px 0 !important; }
+  .mt-@{value} { margin-top: @@spacer * 1px !important; }
+  .mr-@{value} { margin-right: @@spacer * 1px !important; }
+  .mb-@{value} { margin-bottom: @@spacer * 1px !important; }
+  .ml-@{value} { margin-left: @@spacer * 1px !important; }
+
+  // Padding classes
+  .p-@{value} { padding: @@spacer * 1px !important; }
+  .px-@{value} { padding: 0 @@spacer * 1px !important; }
+  .py-@{value} { padding: @@spacer * 1px 0 !important; }
+  .pt-@{value} { padding-top: @@spacer * 1px !important; }
+  .pr-@{value} { padding-right: @@spacer * 1px !important; }
+  .pb-@{value} { padding-bottom: @@spacer * 1px !important; }
+  .pl-@{value} { padding-left: @@spacer * 1px !important; }
+});
+
+// Widths and heights percents (w-0, w-1, w-100, h-0, h-1, ...) w-100 === 100%
+each(range(0, 100, 1),{
+  // Width classes
+  .w-@{value} { width: @value * 1% !important; }
+
+  // Height classes
+  .h-@{value} { height: @value * 1% !important; }
+
+  // Line clamps
+  .line-clamp-@{value} {
+    display: -webkit-box !important;
+    -webkit-line-clamp: @value !important;
+    -webkit-box-orient: vertical !important;
+    overflow: hidden !important;
+  }
+});
+
+
+// General styles
+p {
+  margin-bottom: 10px;
+}
+
+label {
+  &:not(.ant-radio-button-wrapper):not(.ant-radio-wrapper):not(.ant-checkbox-wrapper) {
+    font-weight: 600;
+    margin-bottom: 5px;
+  }
+}
+
+.cursor-pointer {
+  cursor: pointer !important;
+}
+
+.cursor-default {
+  cursor: default !important;
+}
+
+.no-border {
+  border: none !important;
+}
+
+.no-shadow {
+  box-shadow: none !important;
+}
+
+.no-wrap {
+  white-space: nowrap !important;
+}
+
+// Display/position styles
+.d-grid {
+  display: grid !important;
+}
+
+.float-none {
+  float: none !important;
+}
+
+.float-right {
+  float: right !important;
+}
+
+.float-left {
+  float: left !important;
+}
+
+.d-block {
+  display: block !important;
+}
+
+.d-inline {
+  display: inline !important;
+}
+
+.d-inline-block {
+  display: inline-block !important;
+}
+
+.d-flex {
+  display: flex !important;
+}
+
+.d-inline-flex {
+  display: inline-flex !important;
+}
+
+.align-items-start {
+  align-items: flex-start !important;
+}
+
+.align-items-center {
+  align-items: center !important;
+}
+
+.align-items-end {
+  align-items: flex-end !important;
+}
+
+.justify-content-start {
+  justify-content: flex-start !important;
+}
+
+.justify-content-center {
+  justify-content: center !important;
+}
+
+.justify-content-end {
+  justify-content: flex-end !important;
+}
+
+.justify-content-between {
+  justify-content: space-between !important;
+}
+
+// Text styles
+.font-weight-normal {
+  font-weight: normal !important;
+}
+
+.text-break {
+  word-break: break-all !important;
+}
+
+.text-help {
+  cursor: help;
+  color: @blue-6;
+}
+
+.text-link {
+  color: @link-color !important;
+}
+
+.text-large {
+  font-size: @font-size-lg !important;
+}
+
+.text-small {
+  font-size: @font-size-sm !important;
+}
+
+.text-color-code {
+  color: @text-color-code !important;
+}
+
+.text-white {
+  color: #fff !important;
+}
+
+.text-muted {
+  color: @text-color-muted !important;
+}
+
+.text-underline {
+  text-decoration: underline !important;
+}
+
+.text-bold {
+  font-weight: 500 !important;
+}
+
+.text-bolder {
+  font-weight: 800 !important;
+}
+
+.text-error, .text-danger {
+  color: @error-color !important;
+}
+
+.text-warning {
+  color: @gold-5 !important;
+}
+
+.text-success {
+  color: @green-5 !important;
+}
+
+.text-left {
+  text-align: left !important;
+}
+
+.text-right {
+  text-align: right !important;
+}
+
+.text-center {
+  text-align: center !important;
+}
+
+// Heading styles
+h1, h2, h3, h4, h5, h6, .h1, .h2, .h3, .h4, .h5, .h6 {
+  margin: 0;
+  font-weight: 700;
+  line-height: 1.5;
+  color: inherit;
+}
+h6 { font-size: @font-size-base; margin-bottom: @spacer-xs; }
+h5 { font-size: calc(@font-size-base + 2px); margin-bottom: @spacer-xs; }
+h4 { font-size: calc(@font-size-base + 7px); margin-bottom: @spacer-xs; }
+h3 { font-size: calc(@font-size-base + 12px); margin-bottom: @spacer-sm; }
+h2 { font-size: calc(@font-size-base + 18px); margin-bottom: @spacer-sm; }
+h1 { font-size: calc(@font-size-base + 22px); margin-bottom: @spacer-sm; }
+
+// Images
+.img-fluid {
+  max-width: 100%;
+  height: auto;
+}
