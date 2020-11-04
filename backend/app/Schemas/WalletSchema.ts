@@ -1,4 +1,4 @@
-export interface AccountSchema {
+export interface WalletSchema {
   user_id: string
   ag: string
   cc: string

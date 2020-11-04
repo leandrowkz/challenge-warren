@@ -21,10 +21,7 @@
 import Route from '@ioc:Adonis/Core/Route'
 
 Route.group(() => {
-  Route.get('/history', 'TransactionController.getWalletHistory')
-  Route.post('/payment', 'TransactionController.payment')
-  Route.post('/deposit', 'TransactionController.deposit')
-  Route.post('/withdraw', 'TransactionController.withdraw')
+  Route.get('/', 'WalletController.getUserWallet')
 })
-  .prefix('/transactions')
+  .prefix('/wallets')
   .middleware('auth')

@@ -1,5 +1,4 @@
 import { HttpContextContract } from '@ioc:Adonis/Core/HttpContext'
-import Account from 'App/Models/Account'
 import User from 'App/Models/User'
 import { DepositSchema } from 'App/Schemas/DepositSchema'
 import { FilterSchema } from 'App/Schemas/FilterSchema'
@@ -17,8 +16,9 @@ export default class TransactionController {
     await FilterValidator.validate(request)
     const filters = <FilterSchema>request.all()
     const user = <User>auth.user
-    await user.preload('account')
-    return await TransactionService.getAccountHistory(user.account, filters)
+    await user.preload('wallet')
+    console.log(user)
+    return await TransactionService.getWalletHistory(user.wallet, filters)
   }
 
   /**
@@ -27,10 +27,10 @@ export default class TransactionController {
   public async deposit ({ auth, request } : HttpContextContract) {
     await DepositValidator.validate(request)
     const user = <User>auth.user
-    await user.preload('account')
+    await user.preload('wallet')
     const payload = <DepositSchema>{
       ...request.all(),
-      account_id: user.account.id,
+      wallet_id: user.wallet.id,
     }
     return await TransactionService.makeDeposit(payload)
   }
@@ -41,10 +41,10 @@ export default class TransactionController {
   public async payment ({ auth, request } : HttpContextContract) {
     await PaymentValidator.validate(request)
     const user = <User>auth.user
-    await user.preload('account')
+    await user.preload('wallet')
     const payload = <PaymentSchema>{
       ...request.all(),
-      account_id: user.account.id,
+      wallet_id: user.wallet.id,
     }
     return await TransactionService.makePayment(payload)
   }

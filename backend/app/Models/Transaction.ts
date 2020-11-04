@@ -1,13 +1,13 @@
 import { BelongsTo, belongsTo, column, HasOne, hasOne } from '@ioc:Adonis/Lucid/Orm'
 import BaseModel from 'App/Models/BaseModel'
-import Account from 'App/Models/Account'
+import Account from 'App/Models/Wallet'
 import Detail from 'App/Models/Detail'
 
 export default class Transaction extends BaseModel {
   public static table = 'transactions'
 
   @column()
-  public accountId: string | null
+  public walletId: string | null
 
   @column()
   public type: string

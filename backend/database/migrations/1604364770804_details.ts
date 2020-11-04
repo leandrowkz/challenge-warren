@@ -12,6 +12,8 @@ export default class Details extends BaseSchema {
       table.string('cc').nullable()
       table.string('ag').nullable()
       table.text('barcode').nullable()
+      table.string('person_name').nullable()
+      table.string('person_document').nullable()
       table.text('description').nullable()
     })
   }

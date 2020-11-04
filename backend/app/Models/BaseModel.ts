@@ -3,6 +3,8 @@ import { beforeCreate, BaseModel as LucidModel, column } from '@ioc:Adonis/Lucid
 import { nanoid } from 'nanoid'
 
 export default class BaseModel extends LucidModel {
+  public static selfAssignPrimaryKey = true
+
   @column({ isPrimary: true })
   public id: string
 

@@ -1,8 +1,8 @@
 import { DateTime } from 'luxon'
 
-export interface DepositSchema {
+export interface WithdrawSchema {
   wallet_id: string
-  type: 'deposit'
+  type: 'withdraw'
   amount: number
   when: DateTime
 }

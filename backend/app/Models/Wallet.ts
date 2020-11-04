@@ -3,8 +3,8 @@ import BaseModel from 'App/Models/BaseModel'
 import Transaction from 'App/Models/Transaction'
 import User from 'App/Models/User'
 
-export default class Account extends BaseModel {
-  public static table = 'accounts'
+export default class Wallet extends BaseModel {
+  public static table = 'wallets'
 
   @column()
   public userId: string | null
@@ -19,7 +19,7 @@ export default class Account extends BaseModel {
   public balance: number
 
   @belongsTo(() => User)
-  public account: BelongsTo<typeof User>
+  public user: BelongsTo<typeof User>
 
   @hasMany(() => Transaction)
   public transactions: HasMany<typeof Transaction>

@@ -1,6 +1,6 @@
 export interface TransactionSchema {
   id?: string
-  account_id: string
+  wallet_id: string
   type: 'deposit' | 'withdraw' | 'payment'
   when: string
   amount: number

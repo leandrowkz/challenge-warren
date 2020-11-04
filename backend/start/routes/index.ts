@@ -28,4 +28,5 @@ Route.group(() => {
   require('./auth')
   require('./transaction')
   require('./user')
+  require('./wallet')
 }).prefix('/api')

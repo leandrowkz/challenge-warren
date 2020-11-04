@@ -1,8 +1,7 @@
-import { afterCreate, beforeCreate, column, computed, HasOne, hasOne } from '@ioc:Adonis/Lucid/Orm'
+import { beforeCreate, column, computed, HasOne, hasOne } from '@ioc:Adonis/Lucid/Orm'
 import Hash from '@ioc:Adonis/Core/Hash'
 import BaseModel from 'App/Models/BaseModel'
-import Account from 'App/Models/Account'
-import AccountService from 'App/Services/AccountService'
+import Wallet from 'App/Models/Wallet'
 
 export default class User extends BaseModel {
   public static table = 'users'
@@ -21,18 +20,13 @@ export default class User extends BaseModel {
     return this.name.split(' ')[0] || this.name
   }
 
+  @hasOne(() => Wallet)
+  public wallet: HasOne<typeof Wallet>
+
   @beforeCreate()
   public static async hashPassword (user: User) {
     if (user.$dirty.password) {
       user.password = await Hash.make(user.password)
     }
   }
-
-  @afterCreate()
-  public static async makeAccount (user: User) {
-    await AccountService.makeUserAccount(user)
-  }
-
-  @hasOne(() => Account)
-  public account: HasOne<typeof Account>
 }
