@@ -42,6 +42,7 @@ export const actions: ActionTree<AppState, AppState> = {
     try {
       commit('SET_SIGNIN_ERRORS')
       commit('SET_SIGNIN_LOADING', true)
+      // @ts-ignore
       await this.$auth.loginWith('local', { data: user })
       this.$router.push('/dashboard')
     } catch ({ response }) {
@@ -73,6 +74,7 @@ export const actions: ActionTree<AppState, AppState> = {
    * Logout user.
    */
   async signOut() {
+    // @ts-ignore
     await this.$auth.logout()
     this.$router.push('/')
   },
