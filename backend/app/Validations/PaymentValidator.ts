@@ -1,4 +1,4 @@
-import { schema } from '@ioc:Adonis/Core/Validator'
+import { rules, schema } from '@ioc:Adonis/Core/Validator'
 import BaseValidator from 'App/Validations/BaseValidator'
 
 export default class PaymentValidator extends BaseValidator {
@@ -8,12 +8,16 @@ export default class PaymentValidator extends BaseValidator {
   public static async getValidationRules () {
     return {
       schema: schema.create({
-        amount: schema.number(),
+        amount: schema.number([
+          rules.unsigned(),
+          rules.positive(),
+        ]),
         barcode: schema.number(),
       }),
       messages: {
-        'amount.required': 'Valor do depósito é obrigatório.',
-        'amount.number': 'Valor do depósito não é um número válido.',
+        'amount.required': 'Valor do pagamento é obrigatório.',
+        'amount.number': 'Valor do pagamento não é um número válido.',
+        'amount.positive': 'Valod do pagamento não é positivo.',
         'barcode.required': 'Linha digitável é obrigatória.',
         'barcode.number': 'Linha digitável não é um número válido.',
       },

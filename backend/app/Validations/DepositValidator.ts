@@ -10,11 +10,13 @@ export default class DepositValidator extends BaseValidator {
       schema: schema.create({
         amount: schema.number([
           rules.unsigned(),
+          rules.positive(),
         ]),
       }),
       messages: {
         'amount.required': 'Valor do depósito é obrigatório.',
         'amount.number': 'Valor do depósito não é um número válido.',
+        'amount.positive': 'Valod do depósito não é positivo.',
       },
     }
   }
