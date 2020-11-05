@@ -20,6 +20,43 @@ export default class TransactionService {
   }
 
   /**
+   * Make a new operation on given wallet (Saves a new transaction according with given params).
+   */
+  protected static async _makeOperation (
+    wallet: Wallet,
+    type: 'transfer' | 'payment' | 'withdraw' | 'deposit' | 'monetize',
+    amount: number,
+    details: any = {}
+  ) : Promise<Transaction | false> {
+    // Operation is credit or debit?
+    const isDebit = ['transfer', 'payment', 'withdraw'].includes(type)
+
+    // Wallet has no balance for this operation
+    if (isDebit && !WalletService.hasBalance(wallet, amount)) {
+      return false
+    }
+
+    // Save transaction
+    const transaction = new Transaction()
+    transaction.when = DateTime.local().toString()
+    transaction.type = type
+    transaction.amount = isDebit ? this._handleNegativeAmount(amount) : Math.abs(amount)
+    await wallet.related('transactions').save(transaction)
+
+    // Save details info
+    const attrs = Object.keys(details)
+    const detail = new Detail()
+    attrs.forEach((attr) => {
+      detail[attr] = details[attr]
+    })
+    await detail.related('transaction').associate(transaction)
+
+    // Calculates balance
+    await WalletService.makeBalance(wallet)
+    return transaction
+  }
+
+  /**
    * Returns all transactions available for given user wallet.
    */
   public static async getWalletHistory (wallet: Wallet, filters: FilterSchema) : Promise<TransactionHistorySchema> {
@@ -49,26 +86,11 @@ export default class TransactionService {
    * Create a payment transaction. If wallet has no balance, returns false.
    */
   public static async makePayment (data: PaymentSchema, wallet: Wallet) : Promise<Transaction | false> {
-    if (!WalletService.hasBalance(wallet, data.amount)) {
-      return false
+    const details = {
+      barcode: data.barcode,
+      description: data.description,
     }
-
-    // Save transaction
-    const transaction = new Transaction()
-    transaction.when = DateTime.local().toString()
-    transaction.type = 'payment'
-    transaction.amount = this._handleNegativeAmount(data.amount)
-    await wallet.related('transactions').save(transaction)
-
-    // Save document info
-    const detail = new Detail()
-    detail.barcode = data.barcode
-    detail.description = data.description
-    await detail.related('transaction').associate(transaction)
-
-    // Calculates balance
-    await WalletService.makeBalance(wallet)
-    return transaction
+    return await this._makeOperation(wallet, 'payment', data.amount, details)
   }
 
   /**
@@ -76,21 +98,10 @@ export default class TransactionService {
    * then false is returned.
    */
   public static async makeDeposit (data: DepositSchema, wallet: Wallet) : Promise<Transaction | false> {
-    // Save transaction
-    const transaction = new Transaction()
-    transaction.when = DateTime.local().toString()
-    transaction.type = 'deposit'
-    transaction.amount = Math.abs(data.amount)
-    await wallet.related('transactions').save(transaction)
-
-    // Save details info
-    const detail = new Detail()
-    detail.description = data.description
-    await detail.related('transaction').associate(transaction)
-
-    // Calculates balance
-    await WalletService.makeBalance(wallet)
-    return transaction
+    const details = {
+      description: data.description,
+    }
+    return await this._makeOperation(wallet, 'deposit', data.amount, details)
   }
 
   /**
@@ -103,54 +114,24 @@ export default class TransactionService {
    * rollback value to wallet balance.
    */
   public static async makeTransfer (data: TransferSchema, wallet: Wallet) : Promise<Transaction | false> {
-    if (!WalletService.hasBalance(wallet, data.amount)) {
-      return false
+    const details = {
+      bank: data.bank,
+      ag: data.ag,
+      cc: data.cc,
+      personName: data.person_name,
+      personDocument: data.person_document,
+      description: data.description,
     }
-
-    // Save transaction
-    const transaction = new Transaction()
-    transaction.when = DateTime.local().toString()
-    transaction.type = 'transfer'
-    transaction.amount = this._handleNegativeAmount(data.amount)
-    await wallet.related('transactions').save(transaction)
-
-    // Save transfer info
-    const detail = new Detail()
-    detail.bank = data.bank
-    detail.ag = data.ag
-    detail.cc = data.cc
-    detail.personName = data.person_name
-    detail.personDocument = data.person_document
-    detail.description = data.description
-    await detail.related('transaction').associate(transaction)
-
-    // Calculates balance
-    await WalletService.makeBalance(wallet)
-    return transaction
+    return await this._makeOperation(wallet, 'transfer', data.amount, details)
   }
 
   /**
    * Create a withdraw transaction to given wallet.
    */
   public static async makeWithdraw (data: WithdrawSchema, wallet: Wallet) : Promise<Transaction | false> {
-    if (!WalletService.hasBalance(wallet, data.amount)) {
-      return false
+    const details = {
+      description: data.description,
     }
-
-    // Save transaction
-    const transaction = new Transaction()
-    transaction.when = DateTime.local().toString()
-    transaction.type = 'withdraw'
-    transaction.amount = this._handleNegativeAmount(data.amount)
-    await wallet.related('transactions').save(transaction)
-
-    // Save transfer info
-    const detail = new Detail()
-    detail.description = data.description
-    await detail.related('transaction').associate(transaction)
-
-    // Calculates balance
-    await WalletService.makeBalance(wallet)
-    return transaction
+    return await this._makeOperation(wallet, 'withdraw', data.amount, details)
   }
 }
