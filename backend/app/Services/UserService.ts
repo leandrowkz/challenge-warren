@@ -6,7 +6,18 @@ export default class UserService {
   /**
    * Creates new user according to given data.
    */
-  public static async create (data: UserSchema) : Promise<User> {
+  public static async create (data: UserSchema) : Promise<User | false> {
+    // Empty values
+    if (!data || !data.name || !data.email || !data.password) {
+      return false
+    }
+
+    // Prevent insert duplicated users
+    if (!!(await User.query().where('email', data.email).first()) === true) {
+      return false
+    }
+
+    // Create user
     const user = new User()
     user.name = data.name
     user.email = data.email

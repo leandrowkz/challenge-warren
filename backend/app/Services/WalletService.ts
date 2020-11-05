@@ -6,7 +6,7 @@ import { MonetizeSchema } from 'App/Schemas/MonetizeSchema'
 import TransactionService from 'App/Services/TransactionService'
 
 export default class WalletService {
-  protected static DAILY_INTEREST_RATE = 0.17
+  public static DAILY_INTEREST_RATE = 0.17
 
   /**
    * Make a random CC number.
@@ -20,11 +20,15 @@ export default class WalletService {
   /**
    * Make a wallet to given user. If user already has, return it.
    */
-  public static async makeUserWallet (user: User): Promise<void> {
+  public static async makeUserWallet (user: User): Promise<Wallet | false> {
+    if (!user) {
+      return false
+    }
+
     // User already has an wallet
     let wallet = await this.getUserWallet(user)
     if (wallet) {
-      return
+      return wallet
     }
 
     // Build a new wallet
@@ -39,9 +43,10 @@ export default class WalletService {
       wallet.cc = cc
       wallet.balance = 0
       await wallet.related('user').associate(user)
+      return wallet
     } else {
       // An wallet already exists with this code, attempt to create a new one
-      await this.makeUserWallet(user)
+      return await this.makeUserWallet(user)
     }
   }
 
@@ -49,6 +54,9 @@ export default class WalletService {
    * Returns user wallet or false if user does not has onde.
    */
   public static async getUserWallet (user: User) : Promise<Wallet | false> {
+    if (!user) {
+      return false
+    }
     await user.preload('wallet')
     return user.wallet || false
   }

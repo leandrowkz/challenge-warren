@@ -33,7 +33,7 @@ export default class TransactionService {
     const isDebit = ['transfer', 'payment', 'withdraw'].includes(type)
 
     // Wallet has no balance for this operation
-    if (isDebit && !WalletService.hasBalance(wallet, amount)) {
+    if (!wallet || !amount || (isDebit && !WalletService.hasBalance(wallet, amount))) {
       return false
     }
 
@@ -87,6 +87,9 @@ export default class TransactionService {
    * Create a payment transaction. If wallet has no balance, returns false.
    */
   public static async makePayment (data: PaymentSchema, wallet: Wallet) : Promise<Transaction | false> {
+    if (!data || !data.barcode) {
+      return false
+    }
     const details = {
       barcode: data.barcode,
       description: data.description,
@@ -115,6 +118,9 @@ export default class TransactionService {
    * rollback value to wallet balance.
    */
   public static async makeTransfer (data: TransferSchema, wallet: Wallet) : Promise<Transaction | false> {
+    if (!data || !data.bank || !data.ag || !data.cc || !data.person_name || !data.person_document) {
+      return false
+    }
     const details = {
       bank: data.bank,
       ag: data.ag,
