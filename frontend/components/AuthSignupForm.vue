@@ -57,7 +57,7 @@
       block
       @click="submit()"
     >
-      Cadastre-se gratuitamente
+      Cadastre-se de graça
     </a-button>
   </a-form-model>
 </template>

@@ -55,5 +55,12 @@ export default {
       width: 100%;
     }
   }
+
+  @media only screen and (max-width: 600px) {
+    .signup-card {
+      width: 300px;
+      padding: @padding-md;
+    }
+  }
 }
 </style>
