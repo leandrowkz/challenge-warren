@@ -53,18 +53,7 @@ export default {
   .right-section {
     display: flex;
     align-items: center;
-    justify-content: space-between;
-  }
-
-  .trigger {
-    position: absolute;
-    left: 100px;
-    font-size: @font-size-lg;
-    color: @text-color-muted;
-
-    &:hover {
-      color: @text-color;
-    }
+    justify-content: flex-end;
   }
 }
 </style>

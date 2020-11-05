@@ -12,7 +12,9 @@ export default {
 
 <style lang="less">
 .login-layout {
-  height: 100%;
+  min-height: 100%;
+  display: grid;
+  place-items: center;
   background: linear-gradient(
     45deg,
     lighten(@primary-color, 20%),

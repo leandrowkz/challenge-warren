@@ -4,6 +4,7 @@
     :columns="columns"
     :data-source="transactions"
     :row-key="(row) => row.id"
+    :scroll="{ x: true }"
     :pagination="false"
     class="transaction-history-list"
   >
@@ -93,3 +94,11 @@ export default {
   },
 }
 </script>
+
+<style lang="less">
+.transaction-history-list {
+  td {
+    white-space: nowrap;
+  }
+}
+</style>

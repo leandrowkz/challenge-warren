@@ -22,5 +22,16 @@ export default {
   margin-top: 1px;
   color: @text-color-muted;
   font-size: @font-size-sm;
+
+  @media only screen and (max-width: 600px) {
+    display: block;
+    line-height: 1.5;
+    white-space: nowrap;
+    font-size: 9px;
+
+    .anticon {
+      display: none;
+    }
+  }
 }
 </style>

@@ -64,5 +64,9 @@ export default {
   &-dropdown {
     top: calc(@layout-header-height - @spacer-xs) !important;
   }
+
+  @media only screen and (max-width: 600px) {
+    padding-left: @spacer-xs;
+  }
 }
 </style>

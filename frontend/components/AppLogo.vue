@@ -21,6 +21,8 @@ export default {
   width: 200px;
   font-size: calc(@font-size-lg + 5px);
   font-weight: bold;
+  white-space: nowrap;
+
   > span:last-child {
     color: @primary-color;
   }

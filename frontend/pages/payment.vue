@@ -1,10 +1,10 @@
 <template>
   <AppView>
     <a-row :gutter="32">
-      <a-col :span="15">
+      <a-col :lg="15">
         <TransactionCreateCard />
       </a-col>
-      <a-col :span="9">
+      <a-col :lg="9">
         <WalletBalanceCard />
       </a-col>
     </a-row>

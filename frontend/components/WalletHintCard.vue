@@ -60,5 +60,9 @@ export default {
     top: 20px;
     right: -40px;
   }
+
+  @media only screen and (max-width: 600px) {
+    height: auto;
+  }
 }
 </style>
