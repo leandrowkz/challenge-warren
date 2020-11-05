@@ -3,11 +3,13 @@ import { DepositSchema } from 'App/Schemas/DepositSchema'
 import { FilterSchema } from 'App/Schemas/FilterSchema'
 import { PaymentSchema } from 'App/Schemas/PaymentSchema'
 import { TransferSchema } from 'App/Schemas/TransferSchema'
+import { TransactionHistorySchema } from 'App/Schemas/TransactionHistorySchema'
 import { WithdrawSchema } from 'App/Schemas/WithdrawSchema'
 import Wallet from 'App/Models/Wallet'
 import Detail from 'App/Models/Detail'
 import Transaction from 'App/Models/Transaction'
 import WalletService from 'App/Services/WalletService'
+import Database from '@ioc:Adonis/Lucid/Database'
 
 export default class TransactionService {
   /**
@@ -21,7 +23,7 @@ export default class TransactionService {
   /**
    * Returns all transactions available for given user wallet.
    */
-  public static async getWalletHistory (wallet: Wallet, filters: FilterSchema) : Promise<Transaction[]> {
+  public static async getWalletHistory (wallet: Wallet, filters: FilterSchema) : Promise<TransactionHistorySchema> {
     // Load and filter transactions
     await wallet.preload('transactions', (query) => {
       if (filters.type !== 'all') {
@@ -33,7 +35,15 @@ export default class TransactionService {
       query.orderBy('created_at', 'asc')
       query.preload('details')
     })
-    return wallet.transactions
+
+    // Calculate total amount
+    const { transactions } = wallet
+    const total = Number(transactions.reduce((prev, item) => prev + item.amount, 0).toFixed(2))
+
+    return {
+      total,
+      transactions,
+    }
   }
 
   /**
