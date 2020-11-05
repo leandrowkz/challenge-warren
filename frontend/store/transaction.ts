@@ -19,6 +19,7 @@ export const state = () => ({
     payment: 'Pagamento',
     transfer: 'Transferência',
     withdraw: 'Saque',
+    monetize: 'Rentabilidade',
   },
 })
 

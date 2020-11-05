@@ -1,8 +1,13 @@
+import { DateTime } from 'luxon'
 import Database from '@ioc:Adonis/Lucid/Database'
 import User from 'App/Models/User'
 import Wallet from 'App/Models/Wallet'
+import { MonetizeSchema } from 'App/Schemas/MonetizeSchema'
+import TransactionService from 'App/Services/TransactionService'
 
 export default class WalletService {
+  protected static DAILY_INTEREST_RATE = 0.17
+
   /**
    * Make a random CC number.
    */
@@ -69,5 +74,39 @@ export default class WalletService {
 
     await wallet.save()
     return true
+  }
+
+  /**
+   * Monetize balance from given wallet.
+   * 1) Check if balance was already monetized today - if so, skip.
+   * 2) Monetize current balance according with DAILY_INTEREST_RATE.
+   * 3) Saves new 'monetize' transaction with result value.
+   * 4) Saves info that balance was monetized today - this way we can
+   *    run any times we want this method and it will not duplicate
+   *    daily monetization.
+   *
+   * @todo
+   * [ ] Makes DAILY_INTEREST_RATE comes from an external service.
+   */
+  public static async monetizeBalance (wallet: Wallet) : Promise<boolean> {
+    await wallet.preload('transactions', (query) => {
+      const from = DateTime.local().startOf('day').toUTC().toISO()
+      const to = DateTime.local().endOf('day').toUTC().toISO()
+      query.where('type', 'monetize')
+      query.whereBetween('when', [from, to])
+    })
+
+    // Has not been monetized yet
+    if (wallet.transactions.length <= 0) {
+      const rate = WalletService.DAILY_INTEREST_RATE
+      const data = <MonetizeSchema>{
+        amount: (wallet.balance * rate) / 100,
+        description: `Rentabilidade diária da conta corrente (taxa ${rate})`,
+      }
+      await TransactionService.makeMonetize(data, wallet)
+      return true
+    }
+
+    return false
   }
 }

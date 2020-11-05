@@ -1,6 +1,7 @@
 import { DateTime } from 'luxon'
 import { DepositSchema } from 'App/Schemas/DepositSchema'
 import { FilterSchema } from 'App/Schemas/FilterSchema'
+import { MonetizeSchema } from 'App/Schemas/MonetizeSchema'
 import { PaymentSchema } from 'App/Schemas/PaymentSchema'
 import { TransferSchema } from 'App/Schemas/TransferSchema'
 import { TransactionHistorySchema } from 'App/Schemas/TransactionHistorySchema'
@@ -133,5 +134,15 @@ export default class TransactionService {
       description: data.description,
     }
     return await this._makeOperation(wallet, 'withdraw', data.amount, details)
+  }
+
+  /**
+   * Create a monetize transaction to given wallet.
+   */
+  public static async makeMonetize (data: MonetizeSchema, wallet: Wallet) : Promise<Transaction | false> {
+    const details = {
+      description: data.description,
+    }
+    return await this._makeOperation(wallet, 'monetize', data.amount, details)
   }
 }
