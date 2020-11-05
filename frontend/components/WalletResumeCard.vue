@@ -22,9 +22,15 @@
       <nuxt-link to="/deposit" href="/deposit">
         <a-button type="primary">Depósito</a-button>
       </nuxt-link>
-      <a-button type="primary" ghost>Pagamento</a-button>
-      <a-button type="primary" ghost>Transferência</a-button>
-      <a-button type="primary" ghost>Saque</a-button>
+      <nuxt-link to="/payment" href="/payment">
+        <a-button type="primary" ghost>Pagamento</a-button>
+      </nuxt-link>
+      <nuxt-link to="/transfer" href="/transfer">
+        <a-button type="primary" ghost>Transferência</a-button>
+      </nuxt-link>
+      <nuxt-link to="/withdraw" href="/withdraw">
+        <a-button type="primary" ghost>Saque</a-button>
+      </nuxt-link>
     </div>
   </AppCard>
 </template>

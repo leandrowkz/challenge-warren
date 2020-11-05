@@ -16,9 +16,10 @@ export default {
   layout: 'app',
   created() {
     const payload = {
-      model: { type: 'deposit' },
-      title: 'Fazer um depósito',
-      description: 'Faça um novo depósito para sua conta.',
+      model: { type: 'transfer' },
+      title: 'Fazer uma transferência',
+      description:
+        'Faça uma transferência para outro banco utilizando o saldo da sua conta.',
     }
     this.$store.dispatch('transaction/openForm', payload)
   },
