@@ -27,9 +27,11 @@ export default class TransactionService {
       if (filters.type !== 'all') {
         query.where('type', filters.type)
       }
-      query.preload('details')
-      query.whereBetween('when', [filters.from.toString(), filters.to.toString()])
+      const from = `${filters.from} 00:00:00`
+      const to = `${filters.to} 23:59:59`
+      query.whereBetween('when', [from, to])
       query.orderBy('created_at', 'asc')
+      query.preload('details')
     })
     return wallet.transactions
   }
