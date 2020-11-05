@@ -95,12 +95,10 @@ export default {
       try {
         const action = `${this.storeModule}/${this.storeAction}`
         const payload = {
-          action: this.formState.action,
           data: { ...this.form },
         }
         await this.$store.dispatch(action, payload)
       } catch (err) {
-        console.log(err)
         return false
       }
 

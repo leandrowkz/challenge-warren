@@ -74,7 +74,7 @@ export const actions: ActionTree<AppState, AppState> = {
    */
   async signOut() {
     await this.$auth.logout()
-    this.$router.push('/login')
+    this.$router.push('/')
   },
 
   /**

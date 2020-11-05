@@ -9,7 +9,6 @@ import Wallet from 'App/Models/Wallet'
 import Detail from 'App/Models/Detail'
 import Transaction from 'App/Models/Transaction'
 import WalletService from 'App/Services/WalletService'
-import Database from '@ioc:Adonis/Lucid/Database'
 
 export default class TransactionService {
   /**

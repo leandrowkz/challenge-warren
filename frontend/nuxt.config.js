@@ -37,6 +37,12 @@ export default {
 
   // Auth module configurations
   auth: {
+    redirect: {
+      login: '/',
+      logout: '/',
+      callback: '/',
+      home: '/dashboard',
+    },
     strategies: {
       local: {
         endpoints: {

@@ -5,7 +5,6 @@ export default class TransactionAPI extends BaseAPI {
    * Attempt to get current user wallet transactions.
    */
   fetchWalletTransactions({ filters }: any) {
-    console.log(filters)
     return this.http.get('/transactions/history', { params: { ...filters } })
   }
 
