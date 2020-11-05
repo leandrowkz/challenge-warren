@@ -8,7 +8,8 @@
     "start": "nuxt-ts start",
     "generate": "nuxt-ts generate",
     "lint": "eslint --ext .ts,.js,.vue --ignore-path .gitignore .",
-    "lint:fix": "eslint --fix --ext .ts,.js,.vue --ignore-path .gitignore ."
+    "lint:fix": "eslint --fix --ext .ts,.js,.vue --ignore-path .gitignore .",
+    "deploy:heroku": "cd ../ && git subtree push --prefix frontend heroku-warren-leandrowkz-frontend master || true"
   },
   "dependencies": {
     "@nuxt/typescript-runtime": "^2.0.0",
