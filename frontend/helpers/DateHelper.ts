@@ -40,30 +40,30 @@ export default class DateHelper {
   }
 
   public static cast(str: string): moment.Moment {
-    return moment(str)
+    return moment(str).utcOffset('+00:00')
   }
 
   public static now(): any {
-    return moment().format('YYYY-MM-DD HH:mm:SS')
+    return moment().utcOffset('+00:00').format('YYYY-MM-DD HH:mm:SS')
   }
 
   public static today(): any {
-    return moment().format('YYYY-MM-DD')
+    return moment().utcOffset('+00:00').format('YYYY-MM-DD')
   }
 
   public static getHour(dt: string): string {
-    return moment(dt).format('HH:mm')
+    return moment(dt).utcOffset('+00:00').format('HH:mm')
   }
 
   public static format(dt: string): string {
-    return moment(dt).format('YYYY-MM-DD')
+    return moment(dt).utcOffset('+00:00').format('YYYY-MM-DD')
   }
 
   public static formatHuman(dt: string): string {
-    return moment(dt).format('LL')
+    return moment(dt).utcOffset('+00:00').format('LL')
   }
 
   public static formatBrazilian(dt: string): string {
-    return moment(dt).format('DD/MM/YYYY')
+    return moment(dt).utcOffset('+00:00').format('DD/MM/YYYY')
   }
 }

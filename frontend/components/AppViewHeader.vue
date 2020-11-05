@@ -1,7 +1,7 @@
 <template>
   <a-layout-header :class="{ container: container }" class="app-view-header">
     <div class="app-view-header-wrapper">
-      <AppLogo />
+      <AppLogo to="/dashboard" />
       <div class="right-section">
         <AppViewHeaderWallet />
         <AppViewHeaderUser />
