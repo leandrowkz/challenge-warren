@@ -4,24 +4,24 @@
     <div class="total">
       <div class="currency mr-2">R$</div>
       <div :class="{ 'text-success': total >= 0, 'text-error': total < 0 }">
-        {{ total }}
+        {{ formatCurrency(total) }}
       </div>
     </div>
   </section>
 </template>
 
 <script>
+import { mapGetters } from 'vuex'
+
 export default {
   props: {
-    transactions: {
-      type: Array,
-      default: () => [],
+    total: {
+      type: Number,
+      default: 0,
     },
   },
   computed: {
-    total() {
-      return this.transactions.reduce((prev, item) => prev + item.amount, 0)
-    },
+    ...mapGetters('app', ['formatCurrency']),
   },
 }
 </script>
@@ -37,9 +37,15 @@ export default {
     white-space: nowrap;
   }
 
-  .currency {
-    font-size: @font-size-sm;
-    color: @text-color-muted;
+  .total {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    .currency {
+      font-size: @font-size-sm;
+      color: @text-color-muted;
+    }
   }
 }
 </style>

@@ -7,7 +7,7 @@
     :pagination="false"
     class="transaction-history-list"
   >
-    <TransactionHistoryListFooter slot="footer" :transactions="transactions" />
+    <TransactionHistoryListFooter slot="footer" :total="total" />
   </a-table>
   <AppEmpty
     v-else
@@ -29,6 +29,10 @@ export default {
     transactions: {
       type: Array,
       default: () => [],
+    },
+    total: {
+      type: Number,
+      default: 0,
     },
   },
   computed: {

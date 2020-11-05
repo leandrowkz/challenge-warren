@@ -5,7 +5,10 @@
     title="Extrato bancário"
     description="Veja suas movimentações no período selecionado."
   >
-    <TransactionHistoryList :transactions="walletTransactions" />
+    <TransactionHistoryList
+      :transactions="walletTransactions"
+      :total="walletTransactionsTotal"
+    />
     <TransactionHistoryFilters class="filters" />
   </AppCard>
 </template>
@@ -16,6 +19,7 @@ import { mapState } from 'vuex'
 export default {
   computed: mapState('transaction', [
     'walletTransactions',
+    'walletTransactionsTotal',
     'loadingWalletTransactions',
   ]),
 }

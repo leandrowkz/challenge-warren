@@ -3,6 +3,7 @@ import { GetterTree, ActionTree, MutationTree } from 'vuex'
 
 export const state = () => ({
   walletTransactions: <any[]>[],
+  walletTransactionsTotal: <number>0,
   loadingWalletTransactions: <boolean>false,
   form: {
     model: <any>{},
@@ -47,7 +48,8 @@ export const actions: ActionTree<TransactionState, TransactionState> = {
     const { data } = await this.$api.transaction.fetchWalletTransactions({
       filters,
     })
-    commit('SET_WALLET_TRANSACTIONS', data)
+    commit('SET_WALLET_TRANSACTIONS', data.transactions)
+    commit('SET_WALLET_TRANSACTIONS_TOTAL', data.total)
     commit('SET_LOADING_WALLET_TRANSACTIONS', false)
     return data
   },
@@ -117,6 +119,10 @@ export const actions: ActionTree<TransactionState, TransactionState> = {
 export const mutations: MutationTree<TransactionState> = {
   SET_WALLET_TRANSACTIONS: (state: TransactionState, transactions: []) => {
     state.walletTransactions = [...transactions]
+  },
+
+  SET_WALLET_TRANSACTIONS_TOTAL: (state: TransactionState, total: number) => {
+    state.walletTransactionsTotal = total
   },
 
   SET_LOADING_WALLET_TRANSACTIONS: (
