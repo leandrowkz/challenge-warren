@@ -402,8 +402,27 @@
     border-radius: @calendar-picker-radius;
     box-shadow: @calendar-picker-shadow;
 
-    .ant-calendar-input {
-      background-color: @calendar-picker-input-bg;
+    .ant-calendar-range-right {
+      .ant-calendar-date-input-wrap {
+        margin-left: 0;
+
+      }
+    }
+
+    .ant-calendar-input-wrap {
+      height: calc(@input-height-base + 2px);
+      border-bottom: 1px solid @border-color-base;
+
+      .ant-calendar-input {
+        background-color: @calendar-picker-input-bg;
+        text-align: center;
+      }
+    }
+
+    .ant-calendar-range-middle {
+      padding: 0;
+      height: calc(@input-height-base + 2px);
+      line-height: calc(@input-height-base + 2px);
     }
   }
 }

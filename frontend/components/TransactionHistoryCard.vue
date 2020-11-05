@@ -6,6 +6,7 @@
     description="Veja suas movimentações no período selecionado."
   >
     <TransactionHistoryList :transactions="walletTransactions" />
+    <TransactionHistoryFilters class="filters" />
   </AppCard>
 </template>
 
@@ -22,6 +23,10 @@ export default {
 
 <style lang="less">
 .transaction-history-card {
-  //
+  .filters {
+    position: absolute;
+    top: calc(@card-padding-base + 10px);
+    right: @card-padding-base;
+  }
 }
 </style>

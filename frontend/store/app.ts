@@ -1,3 +1,4 @@
+import Vue from 'vue'
 import * as moment from 'moment'
 import { GetterTree, ActionTree, MutationTree } from 'vuex'
 import DateHelper from '~/helpers/DateHelper'
@@ -75,9 +76,23 @@ export const actions: ActionTree<AppState, AppState> = {
     await this.$auth.logout()
     this.$router.push('/login')
   },
+
+  /**
+   * Set date filters.
+   */
+  setFilterDates({ commit }, dates: any) {
+    const from = DateHelper.format(dates.from)
+    const to = DateHelper.format(dates.to)
+    commit('SET_FILTER_DATES', { from, to })
+  },
 }
 
 export const mutations: MutationTree<AppState> = {
+  SET_FILTER_DATES: (state: AppState, { from, to }) => {
+    Vue.set(state.filters, 'from', from)
+    Vue.set(state.filters, 'to', to)
+  },
+
   SET_SIGNIN_ERRORS: (state: AppState, errors: [] | false) => {
     state.signInErrors = errors ? [...errors] : false
   },
