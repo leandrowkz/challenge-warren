@@ -6,7 +6,9 @@
     :row-key="(row) => row.id"
     :pagination="false"
     class="transaction-history-list"
-  />
+  >
+    <TransactionHistoryListFooter slot="footer" :transactions="transactions" />
+  </a-table>
   <AppEmpty
     v-else
     title="Sem movimentações"
