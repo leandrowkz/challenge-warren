@@ -3,11 +3,12 @@
   "version": "1.0.0",
   "private": true,
   "scripts": {
-    "build": "node ace build --production",
-    "start": "node server.js",
+    "build": "node ace build",
+    "start": "node build/server.js",
     "dev": "node ace serve --watch",
     "lint": "eslint . --ext=.ts",
-    "format": "prettier --write ."
+    "format": "prettier --write .",
+    "deploy:heroku": "cd ../ && git subtree push --prefix backend heroku-ckl-leandrowkz-backend master || true"
   },
   "devDependencies": {
     "@adonisjs/assembler": "^3.0.6",
@@ -34,5 +35,8 @@
     "proxy-addr": "^2.0.6",
     "reflect-metadata": "^0.1.13",
     "sqlite3": "^5.0.0"
+  },
+  "engines": {
+    "node": ">=12.0.0"
   }
 }
