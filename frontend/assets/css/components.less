@@ -299,21 +299,13 @@
       td {
         padding: @table-inside-card-padding-vertical @table-inside-card-padding-horizonal !important;
       }
+    }
 
-      .ant-table-tbody {
-        tr {
-          &:last-child {
-            td {
-              &:first-child {
-                border-bottom-left-radius: @card-radius;
-              }
-              &:last-child {
-                border-bottom-right-radius: @card-radius;
-              }
-            }
-          }
-        }
-      }
+    .ant-table-footer {
+      border-bottom-left-radius: @card-radius;
+      border-bottom-right-radius: @card-radius;
+      padding-left: @table-inside-card-padding-horizonal !important;
+      padding-right: @table-inside-card-padding-horizonal !important;
     }
   }
 }
@@ -467,5 +459,9 @@
         }
       }
     }
+  }
+
+  .ant-table-footer {
+    padding: calc(@table-padding-vertical + 4px) @table-padding-horizontal;
   }
 }
