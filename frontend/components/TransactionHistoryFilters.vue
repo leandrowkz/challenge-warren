@@ -1,11 +1,14 @@
 <template>
-  <a-range-picker
-    :value="[DateHelper.cast(filters.from), DateHelper.cast(filters.to)]"
-    :format="DateHelper.configs.datepicker.format"
-    :locale="DateHelper.configs.datepicker.locale"
-    class="transaction-history-filters"
-    @change="filterDate"
-  />
+  <section class="transaction-history-filters">
+    <div class="label">Período</div>
+    <a-range-picker
+      :value="[DateHelper.cast(filters.from), DateHelper.cast(filters.to)]"
+      :format="DateHelper.configs.datepicker.format"
+      :locale="DateHelper.configs.datepicker.locale"
+      class="datepicker"
+      @change="filterDate"
+    />
+  </section>
 </template>
 
 <script>
@@ -30,6 +33,17 @@ export default {
 
 <style lang="less">
 .transaction-history-filters {
-  max-width: 250px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+  .label {
+    color: @text-color-muted;
+    margin-right: @spacer-sm;
+  }
+
+  .datepicker {
+    max-width: 250px;
+  }
 }
 </style>
