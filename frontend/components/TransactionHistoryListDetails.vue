@@ -9,7 +9,8 @@
       >
         <a-icon :type="open ? 'minus-square' : 'plus-square'" />
       </a>
-      <span>{{ details.description }}</span>
+      <span v-if="details.description">{{ details.description }}</span>
+      <span v-else class="text-italic">Sem descrição</span>
     </div>
     <div v-if="open">
       <template v-if="transaction.type === 'payment'">
