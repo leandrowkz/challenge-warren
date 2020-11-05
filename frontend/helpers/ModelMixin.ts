@@ -1,7 +1,7 @@
 export default {
   props: {
     value: {
-      type: String,
+      type: [String, Number, Boolean],
       default: undefined,
     },
   },

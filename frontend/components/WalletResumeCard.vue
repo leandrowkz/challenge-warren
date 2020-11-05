@@ -19,9 +19,11 @@
       </h3>
     </div>
     <div class="actions">
-      <a-button type="primary">Pagamento</a-button>
+      <nuxt-link to="/deposit" href="/deposit">
+        <a-button type="primary">Depósito</a-button>
+      </nuxt-link>
+      <a-button type="primary" ghost>Pagamento</a-button>
       <a-button type="primary" ghost>Transferência</a-button>
-      <a-button type="primary" ghost>Depósito</a-button>
       <a-button type="primary" ghost>Saque</a-button>
     </div>
   </AppCard>

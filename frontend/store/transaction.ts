@@ -13,7 +13,7 @@ export const state = () => ({
     description: <string>null,
     backRoute: '/dashboard',
   },
-  labels: {
+  labels: <any>{
     deposit: 'Depósito',
     payment: 'Pagamento',
     transfer: 'Transferência',
@@ -57,7 +57,7 @@ export const actions: ActionTree<TransactionState, TransactionState> = {
    */
   async openForm(
     { state, commit },
-    { model, action, title, description, backRoute = state.form.backRoute }
+    { model, title, description, backRoute = state.form.backRoute }
   ) {
     if (!model) {
       return this.$router.push(state.form.backRoute)
@@ -65,7 +65,6 @@ export const actions: ActionTree<TransactionState, TransactionState> = {
 
     await Promise.all([
       commit('SET_FORM_ITEM', { key: 'model', data: { ...model } }),
-      commit('SET_FORM_ITEM', { key: 'action', data: action }),
       commit('SET_FORM_ITEM', { key: 'errors', data: false }),
       commit('SET_FORM_ITEM', { key: 'title', data: title }),
       commit('SET_FORM_ITEM', { key: 'description', data: description }),
@@ -78,8 +77,8 @@ export const actions: ActionTree<TransactionState, TransactionState> = {
    */
   async saveForm({ commit, dispatch, state }) {
     let notification = ''
-    const { type, model } = state.form
-    switch (type.toLowerCase()) {
+    const { model } = state.form
+    switch (model.type.toLowerCase()) {
       case 'payment':
         notification = 'Pagamento realizado.'
         break
@@ -98,10 +97,11 @@ export const actions: ActionTree<TransactionState, TransactionState> = {
       commit('SET_FORM_ITEM', { key: 'errors', data: false })
       commit('SET_FORM_ITEM', { key: 'loading', data: true })
       // @ts-ignore
-      await this.$api.transaction[type]({ data: model })
+      await this.$api.transaction[model.type]({ data: model })
       await dispatch('fetchWalletTransactions')
+      await this.dispatch('wallet/fetchUserWallet')
       this.$notification.success({
-        message: model.name,
+        message: 'Movimentação',
         description: notification,
       })
     } catch ({ response }) {

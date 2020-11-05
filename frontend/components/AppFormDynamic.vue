@@ -9,7 +9,6 @@
       <a-button
         v-if="showBack"
         :disabled="formState.loading"
-        icon="arrow-left"
         type="default"
         class="ml-3"
         @click="back"
@@ -37,7 +36,7 @@ export default {
     },
     backText: {
       type: String,
-      default: 'Voltar',
+      default: 'Cancelar',
     },
     showBack: {
       type: Boolean,
@@ -67,9 +66,6 @@ export default {
   mounted() {
     this.copyStoreForm()
   },
-  beforeDestroy() {
-    // this.unwatchStoreForm()
-  },
   methods: {
     /**
      * Copy form model to local form data.
@@ -79,20 +75,8 @@ export default {
     },
 
     /**
-     * Watch form.model on state and sets locally.
+     * Update state form.model on state.
      */
-    // watchStoreForm() {
-    //   const whenThis = (state) => {
-    //     console.log('dispatch change', state[this.storeModule].form.model)
-    //     return state[this.storeModule].form.model
-    //   }
-    //   const doThis = (newValue) => {
-    //     console.log('form changed', newValue)
-    //     this.form = { ...newValue }
-    //   }
-    //   this.unwatchStoreForm = this.$store.watch(whenThis, doThis)
-    // },
-
     updateStoreModel() {
       const payload = { key: 'model', data: { ...this.form } }
       this.$store.commit(`${this.storeModule}/SET_FORM_ITEM`, payload)
@@ -115,7 +99,8 @@ export default {
           data: { ...this.form },
         }
         await this.$store.dispatch(action, payload)
-      } catch {
+      } catch (err) {
+        console.log(err)
         return false
       }
 

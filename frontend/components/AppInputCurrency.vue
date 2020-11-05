@@ -14,7 +14,6 @@
 </template>
 
 <script>
-import { mapState } from 'vuex'
 import ModelMixin from '~/helpers/ModelMixin'
 
 export default {
