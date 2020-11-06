@@ -32,13 +32,14 @@ Follow the steps below and get this API running locally:
 2. ```$ cp .env.example .env```
 4. ```$ docker-compose up -d``` > Builds images and get containers running in background
 5. ```$ docker-compose exec warren-api sh``` > Enter in docker api container
-6. ```$ npm run migrate``` > Inside container, run migrations (create db tables)
+6. ```$ node ace migration:run``` > Inside container, run migrations (create db tables)
 >> At this point the API is running on localhost:3333/api and MySQL8 is running on localhost:3306.
 
 #### Running tests
 After get running local, to run tests simple do:
 1. ```$ docker-compose exec warren-api sh``` > Enter in docker api container
-2. ```npm run tests``` > check console output
+2. ```$ mkdir tmp && touch tmp/db.sqlite3``` > Create sqlite3 database for testing
+2. ```$ npm run tests``` > check console output
 
 #### Troubleshooting
 Since adonisjs uses typescript and runs from build directory (which contains all compiled javascript files), some build problems can occur. If this happens, try rebuilding the app and running up server again. You can also read the [Adonisjs docs](https://preview.adonisjs.com/guides).
@@ -71,7 +72,7 @@ Follow the steps below and get the frontend running locally on port 3000.
 2. ```$ cp .env.example .env```
 3. ```$ npm i```
 4. Change .env API_URL and API_URL_BROWSER to http://localhost:3333/api (or backend URL above)
-5. ```$ npm run start``` > Frontend running on localhost:3000
+5. ```$ npm run dev``` > Frontend running on localhost:3000
 >> At this point frontend running on localhost:3000.
 
 ## Daily monetization
