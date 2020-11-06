@@ -1,0 +1,56 @@
+# v3 syntax
+version: '3.5'
+
+# Named volumes
+volumes:
+  # MySQL Data
+  warren-mysql-data:
+    driver: local
+
+# Named networks
+networks:
+  warren-network:
+    name: 'warren-network'
+
+# App services
+services:
+  # MySQL (8+)
+  warren-mysql:
+    image: mysql:8.0
+    container_name: warren-mysql
+    command: mysqld --default-authentication-plugin=mysql_native_password
+    restart: always
+    volumes:
+      - warren-mysql-data:/var/lib/mysql
+    ports:
+      - 3306:3306
+    expose:
+      - 3306
+    environment:
+      - MYSQL_ROOT_PASSWORD=warren
+      - MYSQL_DATABASE=warren
+      - MYSQL_USER=warren
+      - MYSQL_PASSWORD=warren
+      - MYSQL_ALLOW_EMPTY_PASSWORD=true
+    networks:
+      - warren-network
+
+  # Adonis API
+  warren-api:
+    container_name: warren-api
+    build:
+      context: .
+      dockerfile: Dockerfile
+    volumes:
+      - .:/home/node/app
+      - /home/node/app/node_modules
+    expose:
+      - 3333
+    ports:
+      - 3333:3333
+    depends_on:
+      - warren-mysql
+    links:
+      - warren-mysql
+    networks:
+      - warren-network
