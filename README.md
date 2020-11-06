@@ -72,6 +72,7 @@ Follow the steps below and get the frontend running locally on port 3000.
 3. ```$ npm i```
 4. Change .env API_URL and API_URL_BROWSER to http://localhost:3333/api (or backend URL above)
 5. ```$ npm run start``` > Frontend running on localhost:3000
+>> At this point frontend running on localhost:3000.
 
 ## Daily monetization
 Backend comes with a builtin command that monetizes all wallet balances daily. It is not a problem run twice or more a day because command prevents duplication monetization. Must be run inside docker-container.
