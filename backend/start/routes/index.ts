@@ -20,9 +20,6 @@
 
 import Route from '@ioc:Adonis/Core/Route'
 
-// Webhook routes
-require('./webhooks')
-
 // API routes
 Route.group(() => {
   require('./auth')

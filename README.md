@@ -26,6 +26,20 @@ Some of the backend app highlights:
 - Service Layer responsible for handling info (it could has a repository pattern but it would be an overhead)
 - Development env uses Docker/docker-compose
 
+#### Available routes
+| Route                      | Method | Handler                                      | Middleware |
+|----------------------------|:------:|----------------------------------------------|:----------:|
+| /api/auth/signup           |  POST  | ```AuthController.signUp```                  |            |
+| /api/auth/signin           |  POST  | ```AuthController.signIn```                  |            |
+| /api/auth/signout          |  POST  | ```AuthController.signOut```                 |            |
+| /api/transactions/history  |   GET  | ```TransactionController.getWalletHistory``` |    auth    |
+| /api/transactions/payment  |  POST  | ```TransactionController.payment```          |    auth    |
+| /api/transactions/deposit  |  POST  | ```TransactionController.deposit```          |    auth    |
+| /api/transactions/transfer |  POST  | ```TransactionController.transfer```         |    auth    |
+| /api/transactions/withdraw |  POST  | ```TransactionController.withdraw```         |    auth    |
+| /api/users/me              |   GET  | ```UserController.me```                      |    auth    |
+| /api/wallets               |   GET  | ```WalletController.getUserWallet```         |    auth    |
+
 #### Running local with Docker/docker-compose
 Follow the steps below and get this API running locally:
 1. ```$ cd backend```
