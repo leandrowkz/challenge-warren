@@ -78,7 +78,7 @@ export default class WalletService {
       .sum('amount as sum')
       .from('transactions')
 
-    wallet.balance = total.sum
+    wallet.balance = Number(total.sum.toFixed(2))
 
     await wallet.save()
     return true

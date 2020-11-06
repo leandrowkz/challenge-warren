@@ -12,14 +12,13 @@ export default class PaymentValidator extends BaseValidator {
           rules.unsigned(),
           rules.positive(),
         ]),
-        barcode: schema.number(),
+        barcode: schema.string(),
       }),
       messages: {
         'amount.required': 'Valor do pagamento é obrigatório.',
         'amount.number': 'Valor do pagamento não é um número válido.',
         'amount.positive': 'Valod do pagamento não é positivo.',
         'barcode.required': 'Linha digitável é obrigatória.',
-        'barcode.number': 'Linha digitável não é um número válido.',
       },
     }
   }
