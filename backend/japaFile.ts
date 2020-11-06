@@ -31,7 +31,7 @@ async function rollbackMigrations () {
 function getTestFiles () {
   let userDefined = process.argv.slice(2)[0]
   if (!userDefined) {
-    return 'test/**/*.spec.ts'
+    return 'tests/**/*.spec.ts'
   }
 
   return `${userDefined.replace(/\.ts$|\.js$/, '')}.ts`
