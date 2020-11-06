@@ -41,7 +41,7 @@
       </template>
       <template v-if="form.type === 'payment'">
         <a-form-item label="Linha digitável">
-          <a-input-number v-model="form.barcode" class="w-100" />
+          <a-input v-model="form.barcode" />
         </a-form-item>
       </template>
       <a-form-item
