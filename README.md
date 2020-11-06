@@ -30,16 +30,16 @@ Some of the backend app highlights:
 Follow the steps below and get this API running locally:
 1. ```$ cd backend```
 2. ```$ cp .env.example .env```
-4. ```$ docker-compose up -d``` > Builds images and get containers running in background
-5. ```$ docker-compose exec warren-api sh``` > Enter in docker api container
-6. ```$ node ace migration:run``` > Inside container, run migrations (create db tables)
+3. ```$ docker-compose up -d``` > Builds images and get containers running in background
+4. ```$ docker-compose exec warren-api sh``` > Enter in docker api container
+5. ```$ node ace migration:run``` > Inside container, run migrations (create db tables)
 >> At this point the API is running on localhost:3333/api and MySQL8 is running on localhost:3306.
 
 #### Running tests
 After get running local, to run tests simple do:
 1. ```$ docker-compose exec warren-api sh``` > Enter in docker api container
 2. ```$ mkdir tmp && touch tmp/db.sqlite3``` > Create sqlite3 database for testing
-2. ```$ npm run tests``` > check console output
+3. ```$ npm run tests``` > check console output
 
 #### Troubleshooting
 Since adonisjs uses typescript and runs from build directory (which contains all compiled javascript files), some build problems can occur. If this happens, try rebuilding the app and running up server again. You can also read the [Adonisjs docs](https://preview.adonisjs.com/guides).
@@ -79,7 +79,7 @@ Follow the steps below and get the frontend running locally on port 3000.
 Backend comes with a builtin command that monetizes all wallet balances daily. It is not a problem run twice or more a day because command prevents duplication monetization. Must be run inside docker-container.
 1. ```$ cd backend```
 2. ```$ docker-compose exec warren-api sh```
-2. ```$ node ace monetize:balance:daily``` > Runs commands/MonetizeBalanceDaily.ts
+3. ```$ node ace monetize:balance:daily``` > Runs commands/MonetizeBalanceDaily.ts
 
 ## Deployment (back and frontend)
 Current deployment process relies on Heroku. Since we have both frontend and backend applications running at the same git repository, different master branches had to be added to each project [as described here](https://adampaxton.com/how-to-deploy-to-multiple-heroku-apps-from-the-same-git-repository/). To deploy you must go to project directory and run the ```deploy:heroku``` command, like so:
