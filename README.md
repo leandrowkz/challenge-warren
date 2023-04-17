@@ -1,5 +1,5 @@
 # Banco magenta (Warren challenge)
-Magenta bank. Simulates a bank account control system, processing deposit requests, withdraws and payments. It also has the ability to monetize the current account balance from one day to another. See working application on [https://warren-leandrowkz-frontend.herokuapp.com](https://warren-leandrowkz-frontend.herokuapp.com).
+Magenta bank. Simulates a bank account control system, processing deposit requests, withdraws and payments. It also has the ability to monetize the current account balance from one day to another.
 
 ## App screenshot
 ![App Screenshot](screenshot.png)
@@ -14,8 +14,6 @@ General project overview:
 - Deploy/production architecture is done using heroku (front and backend)
 
 ## Backend REST API
-Link: https://warren-leandrowkz-backend.herokuapp.com/api
-
 The backend was built using [AdonisJS](https://preview.adonisjs.com), a NodeJS framework very similar to Laravel, Rails and also Django. All the application logic is placed here. Transactions, wallet balance, authentication, users, etc.
 
 #### About backend
