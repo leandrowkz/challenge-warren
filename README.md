@@ -64,8 +64,6 @@ You can also face problems using docker. If this happens, try to remove all cont
 3. ```$ docker-compose up --remove-orphans```
 
 ## Frontend NuxtJS (Vue)
-Link: https://warren-leandrowkz-frontend.herokuapp.com
-
 The frontend app was built under [NuxtJS](https://nuxtjs.org) using Typescript for most part of application. It is as dummy as possible, meaning is only responsible for sending/getting backend info. It doesn't calculate anything.
 
 #### About frontend
